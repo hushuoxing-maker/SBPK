@@ -156,7 +156,7 @@
 
 <div class="header">
     <h1>🔮 古月 · 赛博朋克门头智能生成系统 V3.0</h1>
-    <p>AI辅助设计 | 高级工程材质 | 全中文提示词</p>
+    <p>AI辅助设计 | 高级工程材质 | 全中文提示词 | 正面完整展示</p>
 </div>
 
 <div class="container">
@@ -204,6 +204,15 @@ const details = [
     "景深效果，电影镜头感"
 ];
 
+// 新增：正面展示的多样化描述（避免重复）
+const frontDisplay = [
+    "店铺正面完全展示，无遮挡，完整呈现门头全貌",
+    "正面视角拍摄，门头整体完整展示，构图居中",
+    "正立面全视角，完整展示店铺门头所有细节",
+    "正面平视角度，门头100%完整呈现，无裁切",
+    "正前方视角，店铺门头完整展示，画面无缺失"
+];
+
 async function generate() {
     // 验证必填项
     const industryInput = document.getElementById("industry");
@@ -229,9 +238,10 @@ async function generate() {
         const s = r(styles);
         const m = r(materials);
         const d = r(details);
+        const f = r(frontDisplay); // 随机选择正面展示描述
 
-        // 纯中文提示词
-        const prompt = `【${industry}】门头设计，${s}风格，使用${m}材质，${scene}，${d}，赛博朋克风格，商业门头专业设计，高细节，高质感。`;
+        // 整合「店铺正面完全展示」的核心要求
+        const prompt = `【${industry}】门头设计，${s}风格，使用${m}材质，${scene}，${f}，${d}，赛博朋克风格，商业门头专业设计，高细节，高质感。`;
 
         // 创建结果项
         const item = document.createElement("div");
