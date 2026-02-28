@@ -1,117 +1,124 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>古月·赛博门头灵感库 V4.0</title>
-    <style>
-        :root {
-            --neon-pink: #ff00ff;
-            --neon-blue: #00f5ff;
-            --bg-dark: #050505;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Microsoft YaHei", sans-serif; }
-        
-        body {
-            background: var(--bg-dark);
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            padding: 40px 20px;
-        }
-
-        .main-card {
-            width: 100%;
-            max-width: 600px;
-            background: #111;
-            border: 1px solid #222;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 0 30px rgba(0,0,0,1);
-        }
-
-        .header-title {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 22px;
-            letter-spacing: 4px;
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #888;
-            font-size: 14px;
-        }
-
-        input {
-            width: 100%;
-            padding: 15px;
-            background: #000;
-            border: 1px solid #333;
-            color: #fff;
-            font-size: 16px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            outline: none;
-        }
-
-        input:focus { border-color: var(--neon-pink); }
-
-        .gen-btn {
-            width: 100%;
-            padding: 15px;
-            background: transparent;
-            border: 1.5px solid var(--neon-pink);
-            color: var(--neon-pink);
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            border-radius: 6px;
-        }
-
-        .gen-btn:hover {
-            background: var(--neon-pink);
-            color: #fff;
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
-        }
-
-        .result-list { margin-top: 30px; }
-
-        .item {
-            background: #1a1a1a;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 12px;
-            line-height: 1.6;
-            font-size: 14px;
-            border-left: 3px solid var(--neon-blue);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .copy-link {
-            color: var(--neon-blue);
-            cursor: pointer;
-            font-size: 12px;
-            margin-left: 15px;
-            white-space: nowrap;
-            text-decoration: underline;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>古月AI智能体·赛博门头灵感库 V5</title>
+<style>
+:root {
+    --neon-pink: #ff00ff;
+    --neon-blue: #00f5ff;
+    --bg-dark: #050505;
+    --item-bg: #1a1a1a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: "Microsoft YaHei", sans-serif; }
+body {
+    background: var(--bg-dark);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+.main-card {
+    width: 100%;
+    max-width: 650px;
+    background: linear-gradient(145deg,#111,#0a0a0a);
+    border: 1px solid #222;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,255,255,0.05),0 0 60px rgba(255,0,255,0.08);
+}
+.header-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    letter-spacing: 4px;
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px var(--neon-blue);
+}
+label { display: block; margin-bottom: 10px; color: #888; font-size: 14px; }
+input, select {
+    width: 100%;
+    padding: 14px;
+    background: #000;
+    border: 1px solid #333;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    outline: none;
+}
+input:focus, select:focus { border-color: var(--neon-pink); }
+.gen-btn {
+    width: 100%;
+    padding: 15px;
+    background: transparent;
+    border: 1.5px solid var(--neon-pink);
+    color: var(--neon-pink);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 6px;
+}
+.gen-btn:hover {
+    background: var(--neon-pink);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255,0,255,0.4);
+}
+.result-list { margin-top: 30px; }
+.item {
+    background: var(--item-bg);
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    font-size: 14px;
+    border-left: 3px solid var(--neon-blue);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+.item:hover {
+    transform: translateY(-3px);
+    border-left: 3px solid var(--neon-pink);
+}
+.copy-link {
+    color: var(--neon-blue);
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 15px;
+    white-space: nowrap;
+    text-decoration: underline;
+}
+.preview {
+    width: 60px;
+    height: 40px;
+    background: #222;
+    border-radius: 4px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    color: #888;
+}
+</style>
 </head>
 <body>
 
 <div class="main-card">
-    <div class="header-title">古月AI智能体·赛博门头灵感库 V4.0</div>
+    <div class="header-title">古月AI智能体·赛博门头灵感库 V5</div>
     
     <label>输入店铺行业</label>
     <input type="text" id="industry" placeholder="例如：电竞馆、黑胶吧、潮鞋店">
+
+    <label>选择效果模式</label>
+    <select id="mode">
+        <option value="黑夜环境效果图">黑夜环境效果图</option>
+        <option value="白天自然光效果图">白天自然光效果图</option>
+    </select>
 
     <button class="gen-btn" onclick="generate()">生成 20 组纯中文提示词</button>
 
@@ -121,25 +128,34 @@
 <script>
 const r = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-// 纯中文词库
 const styles = ["硬核工业风", "极简未来主义", "参数化流线设计", "重金属废土感", "霓虹复古美学", "数字黑客风格", "超现实科幻感"];
+const structures = ["双层悬浮结构","无遮挡参数化结构","悬臂式切割造型","框架镂空结构"];
 const lights = ["蓝紫渐变霓虹", "电光紫发光带", "青色激光线条", "极黑背景对比光", "阵列式呼吸灯", "隐藏式线性光源"];
 const materials = ["阳极氧化铝板", "磨砂半透明亚克力", "不锈钢镜面", "蜂窝状金属网", "碳纤维肌理", "液态金属质感"];
 const scenes = ["黑夜纯黑背景", "雨后地面反射", "迷雾电影氛围", "高对比度强阴影", "丁达尔效应"];
 
 function generate() {
     const ind = document.getElementById("industry").value || "商业门头";
+    const mode = document.getElementById("mode").value;
     const out = document.getElementById("output");
     out.innerHTML = "";
+    const used = new Set();
 
-    for(let i=0; i<20; i++){
-        const txt = `[${ind}]门头设计，${r(styles)}，${r(materials)}，${r(lights)}，${r(scenes)}，8K超高清，写实建筑摄影效果 ——古月视觉`;
-        
+    for(let i=0;i<20;i++){
+        let txt;
+        do{
+            txt = `[${ind}]门头设计，店铺正立面完全展示，${r(styles)}，${r(structures)}，${r(materials)}，${r(lights)}，${r(scenes)}，${mode}，8K超高清，写实建筑摄影效果 ——古月视觉`;
+        }while(used.has(txt));
+        used.add(txt);
+
         const div = document.createElement("div");
         div.className = "item";
         div.innerHTML = `
             <span>${i+1}. ${txt}</span>
-            <span class="copy-link" onclick="copyText('${txt}', this)">复制</span>
+            <div style="display:flex; align-items:center;">
+                <span class="copy-link" onclick="copyText('${txt}', this)">复制</span>
+                <div class="preview">预览</div>
+            </div>
         `;
         out.appendChild(div);
     }
@@ -148,10 +164,9 @@ function generate() {
 function copyText(text, el) {
     navigator.clipboard.writeText(text);
     el.innerText = "已复制";
-    setTimeout(() => el.innerText = "复制", 1000);
+    setTimeout(()=>el.innerText="复制",1000);
 }
 </script>
 
 </body>
 </html>
-
