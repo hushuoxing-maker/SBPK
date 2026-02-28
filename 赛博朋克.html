@@ -1,261 +1,217 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>古月·赛博朋克商业门头智能系统 V2.0 增强版</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>古月·赛博视觉生成系统 V3.1</title>
+    <style>
+        :root {
+            --primary: #7000FF;
+            --accent: #00F5FF;
+            --deep-black: #050508;
+            --card-bg: rgba(20, 20, 35, 0.8);
+        }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif}
-body{
-  background:linear-gradient(135deg,#0F1020,#1A1F35);
-  min-height:100vh;
-  padding:20px;
-}
-.header{
-  text-align:center;
-  padding:40px 20px;
-  border-radius:16px;
-  background:linear-gradient(90deg,#6C00FF,#00F5FF);
-  color:#fff;
-  box-shadow:0 10px 30px rgba(0,255,255,.3);
-  margin-bottom: 10px; /* 微调间距 */
-}
-.header h1{font-size:26px;margin-bottom:8px}
-.header p{font-size:14px; opacity: 0.9;}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", "PingFang SC", sans-serif; }
+        
+        body {
+            background: var(--deep-black);
+            background-image: radial-gradient(circle at 50% -20%, #1a1a2e 0%, transparent 70%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #eee;
+        }
 
-.container{
-  max-width:900px;
-  margin:30px auto;
-  background:rgba(255,255,255,.05);
-  backdrop-filter:blur(10px);
-  padding:25px;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.1);
-}
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
 
-label{display:block;color:#fff;margin:15px 0 6px;font-weight:500}
+        .header h1 {
+            font-size: 24px;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
 
-input,select{
-  width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:1px solid rgba(255,255,255,.15);
-  background:rgba(255,255,255,.08);
-  color:#fff;
-  margin-bottom:10px;
-  transition: border 0.3s;
-}
-/* 输入框聚焦样式优化 */
-input:focus, select:focus{
-  outline: none;
-  border-color: #00F5FF;
-  box-shadow: 0 0 8px rgba(0, 245, 255, 0.2);
-}
-/* 空输入框提示 */
-input:placeholder-shown{
-  border-color: rgba(255, 0, 0, 0.2);
-}
+        .main-ui {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
 
-button{
-  width:100%;
-  padding:14px;
-  margin-top:15px;
-  border:none;
-  border-radius:8px;
-  background:linear-gradient(90deg,#6C00FF,#00F5FF);
-  color:#fff;
-  font-size:16px;
-  cursor:pointer;
-  transition: opacity 0.2s;
-}
-button:hover{opacity:.9}
-button:disabled{
-  opacity: 0.6;
-  cursor: not-allowed;
-  background: linear-gradient(90deg, #4a00aa, #00a8b3);
-}
+        .input-group { margin-bottom: 20px; }
+        
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-size: 12px; 
+            color: var(--accent); 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-.result{margin-top:25px}
-.item{
-  background:rgba(255,255,255,.05);
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:10px;
-  border-left:3px solid #00F5FF;
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items: flex-start; /* 对齐优化 */
-  animation: fadeIn 0.3s ease;
-}
-/* 渐入动画 */
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(5px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-.text{flex:1;font-size:13px;color:#E5E7EB;line-height:1.6}
-.copy{
-  padding:5px 10px;
-  font-size:12px;
-  border:none;
-  border-radius:6px;
-  background:#6C00FF;
-  color:#fff;
-  cursor:pointer;
-  white-space: nowrap; /* 防止按钮文字换行 */
-  transition: background 0.2s;
-}
-.copy:hover{
-  background: #00F5FF;
-}
-/* 复制成功样式 */
-.copy.copied{
-  background: #00cc66;
-}
+        input, select {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
 
-/* 加载状态样式 */
-.loading{
-  color: #00F5FF;
-  text-align: center;
-  padding: 20px 0;
-  font-size: 14px;
-}
-.loading::after{
-  content: '';
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid #00F5FF;
-  border-radius: 50%;
-  border-top-color: transparent;
-  animation: spin 1s linear infinite;
-  margin-left: 8px;
-}
-@keyframes spin {
-  to {transform: rotate(360deg);}
-}
+        input:focus { border-color: var(--accent); outline: none; background: rgba(0,0,0,0.7); }
 
-/* 一键复制全部按钮样式优化 */
-#copy-all{
-  margin-top: 20px;
-  background: linear-gradient(90deg, #8a2be2, #00F5FF);
-}
-</style>
+        .gen-btn {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: 0.4s;
+            margin-top: 10px;
+        }
+
+        .gen-btn:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
+        }
+
+        .result-area { margin-top: 30px; }
+
+        .prompt-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid #222;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+            border-left: 2px solid var(--primary);
+        }
+
+        .p-zh { color: #888; font-size: 13px; margin-bottom: 10px; }
+        .p-en { color: #fff; font-size: 14px; line-height: 1.5; font-family: 'Courier New', monospace; }
+
+        .copy-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 10px;
+            color: var(--accent);
+            cursor: pointer;
+            border: 1px solid var(--accent);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        .copy-tag:hover { background: var(--accent); color: #000; }
+
+        /* 隐藏滚动条但保留功能 */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); }
+    </style>
 </head>
-
 <body>
 
 <div class="header">
-  <h1>🔮 古月 · 赛博朋克门头智能生成系统</h1>
-  <p>真随机算法｜结构可控｜8K写实｜正面完整展示</p>
+    <h1>CYBER-VISUAL SYSTEM V3.1</h1>
 </div>
 
-<div class="container">
+<div class="main-ui">
+    <div class="input-group">
+        <label>行业领域 Industry</label>
+        <input type="text" id="industry" placeholder="例：潮玩概念店 / 威士忌酒吧 / 电子竞技">
+    </div>
 
-<label>店铺行业类型 <span style="color:#999; font-weight:normal; font-size:12px">(必填)</span></label>
-<input type="text" id="industry" placeholder="电竞馆、酒吧、科技体验馆、潮玩店">
+    <div class="input-group">
+        <label>环境模式 Environment Mode</label>
+        <select id="scene">
+            <option value="Midnight pure black, high contrast, neon glow, pitch black background">极黑之夜 (高对比纯黑背景)</option>
+            <option value="Cyber-night, cinematic neon lighting, atmospheric fog">霓虹夜景 (电影氛围渲染)</option>
+            <option value="Rainy cyber street, wet floor reflection, neon lights">雨夜模式 (地面湿润反射)</option>
+            <option value="Future daylight, high-tech white style, clean lighting">白昼未来 (纯净高科技感)</option>
+        </select>
+    </div>
 
-<label>门头结构造型</label>
-<select id="structure">
-  <option value="悬浮式赛博结构">悬浮式赛博结构</option>
-  <option value="金属框架造型">金属框架造型</option>
-  <option value="多层霓虹包围结构">多层霓虹包围结构</option>
-  <option value="未来科技外立面结构">未来科技外立面结构</option>
-</select>
+    <div class="input-group" style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+        <div>
+            <label>比例 Ratio</label>
+            <select id="ratio">
+                <option value="--ar 16:9">16:9 宽屏</option>
+                <option value="--ar 3:4">3:4 竖屏</option>
+                <option value="--ar 1:1">1:1 方图</option>
+            </select>
+        </div>
+        <div>
+            <label>模型 Model</label>
+            <select id="version">
+                <option value="--v 6.0">Midjourney V6</option>
+                <option value="--niji 6">Niji 6 (动漫)</option>
+            </select>
+        </div>
+    </div>
 
-<button onclick="generate()" id="generate-btn">生成20组赛博提示词</button>
+    <button class="gen-btn" onclick="generate()">GENERATE 20 PROMPTS</button>
 
-<div class="result" id="result"></div>
-
+    <div class="result-area" id="results"></div>
 </div>
 
 <script>
+const r = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-function r(arr){return arr[Math.floor(Math.random()*arr.length)]}
+// 精选风格与材质库
+const styles = ["Cyber-minimalism", "High-tech industrial", "Avant-garde architecture", "Digital-glitch aesthetic", "Hyper-futuristic"];
+const colors = ["Cyan and Magenta gradient", "Electric Purple neon", "Acid Green laser", "Deep Sea Blue", "Crimson and Gold"];
+const materials = ["Translucent frosted glass", "Brushed metal facade", "Anodized aluminum", "Glowing acrylic letters", "Mirror finish steel"];
 
-const colorLib=["蓝紫渐变霓虹","青粉渐变灯带","紫色电光霓虹","蓝色激光灯效","粉紫科技渐变"];
-const materialLib=["金属板","亚克力发光字","霓虹灯管","不锈钢","透明灯箱结构"];
-const styleLib=["未来科技","赛博潮酷","霓虹炫彩","科技街区风","赛博朋克风"];
-const lightLib=["强发光字","外发光灯带","线性激光灯条","隐藏式灯光结构"];
-const textureLib=["高对比光影","金属反射质感","科技材质肌理","层次分明光效"];
+function generate() {
+    const ind = document.getElementById("industry").value || "Storefront";
+    const sce = document.getElementById("scene").value;
+    const rat = document.getElementById("ratio").value;
+    const ver = document.getElementById("version").value;
+    const res = document.getElementById("results");
 
-async function generate(){
-  const industryInput = document.getElementById("industry");
-  const industry=industryInput.value.trim();
-  const structure=document.getElementById("structure").value;
-  const result=document.getElementById("result");
-  const generateBtn = document.getElementById("generate-btn");
+    res.innerHTML = "";
 
-  // 验证必填项
-  if(!industry){
-    alert("请输入店铺行业类型（如：电竞馆、酒吧）！");
-    industryInput.focus();
-    return;
-  }
+    for(let i=0; i<20; i++){
+        const sty = r(styles);
+        const col = r(colors);
+        const mat = r(materials);
+        
+        const zh = `[方案 ${i+1}] ${ind}门头，${sty}风格，${col}灯光，材质采用${mat}，配合${sce.split(',')[0]}效果。`;
+        const en = `Professional storefront design for ${ind}, ${sty}, ${col} neon lighting, made of ${mat}, ${sce}, architectural photography, 8k resolution, photorealistic, sharp details ${ver} ${rat}`;
 
-  // 加载状态
-  generateBtn.disabled = true;
-  result.innerHTML = '<div class="loading">正在生成赛博朋克提示词...</div>';
-  
-  // 模拟加载延迟（提升体验）
-  await new Promise(resolve => setTimeout(resolve, 500));
-
-  result.innerHTML="";
-  let all=[];
-
-  for(let i=0;i<20;i++){
-    // 移除场景模式，保留核心的完整展示+结构+行业+随机词库
-    const prompt=`正立面平视无遮挡，完整展示，${structure}，${industry}门头，${r(styleLib)}，${r(colorLib)}，${r(materialLib)}组合，品牌店名+未来科技标语，未来感字体设计，${r(lightLib)}，8K高清写实效果图，${r(textureLib)}，可直接施工参考 ——古月AI赛博视觉系统`;
-    all.push(prompt);
-
-    // 创建结果项DOM（优化事件绑定）
-    const itemDiv = document.createElement('div');
-    itemDiv.className = 'item';
-    itemDiv.innerHTML = `
-      <div class="text">${i+1}. ${prompt}</div>
-      <button class="copy" data-text="${prompt}">复制</button>
-    `;
-    result.appendChild(itemDiv);
-  }
-
-  // 添加一键复制全部按钮
-  const copyAllBtn = document.createElement('button');
-  copyAllBtn.id = 'copy-all';
-  copyAllBtn.innerText = '📋 一键复制全部';
-  copyAllBtn.onclick = () => {
-    navigator.clipboard.writeText(all.join("\n\n")).then(() => {
-      copyAllBtn.innerText = '✅ 全部已复制';
-      setTimeout(() => {
-        copyAllBtn.innerText = '📋 一键复制全部';
-      }, 1500);
-    }).catch(() => {
-      alert('复制失败，请手动复制！');
-    });
-  };
-  result.appendChild(copyAllBtn);
-
-  // 绑定单条复制事件（优化反馈）
-  document.querySelectorAll('.copy').forEach(btn => {
-    btn.onclick = function() {
-      const text = this.getAttribute('data-text');
-      navigator.clipboard.writeText(text).then(() => {
-        this.classList.add('copied');
-        this.innerText = '已复制';
-        setTimeout(() => {
-          this.classList.remove('copied');
-          this.innerText = '复制';
-        }, 1500);
-      }).catch(() => {
-        alert('复制失败，请手动复制！');
-      });
-    };
-  });
-
-  // 恢复按钮状态
-  generateBtn.disabled = false;
+        const div = document.createElement("div");
+        div.className = "prompt-card";
+        div.innerHTML = `
+            <div class="copy-tag" onclick="copyIt(this, '${i}')">COPY</div>
+            <p class="p-zh">${zh}</p>
+            <p class="p-en" id="en-${i}">${en}</p>
+        `;
+        res.appendChild(div);
+    }
 }
 
+function copyIt(btn, id) {
+    const text = document.getElementById(`en-${id}`).innerText;
+    navigator.clipboard.writeText(text);
+    btn.innerText = "COPIED!";
+    setTimeout(() => btn.innerText = "COPY", 1000);
+}
 </script>
 
 </body>
