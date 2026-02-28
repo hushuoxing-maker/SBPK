@@ -3,214 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>古月·赛博视觉生成系统 V3.1</title>
+    <title>古月·赛博门头灵感库 V4.0</title>
     <style>
         :root {
-            --primary: #7000FF;
-            --accent: #00F5FF;
-            --deep-black: #050508;
-            --card-bg: rgba(20, 20, 35, 0.8);
+            --neon-pink: #ff00ff;
+            --neon-blue: #00f5ff;
+            --bg-dark: #050505;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", "PingFang SC", sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Microsoft YaHei", sans-serif; }
         
         body {
-            background: var(--deep-black);
-            background-image: radial-gradient(circle at 50% -20%, #1a1a2e 0%, transparent 70%);
-            min-height: 100vh;
-            padding: 20px;
-            color: #eee;
+            background: var(--bg-dark);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
         }
 
-        .header {
-            text-align: center;
-            padding: 40px 0;
-            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
-            margin-bottom: 30px;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            letter-spacing: 3px;
-            background: linear-gradient(90deg, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-        }
-
-        .main-ui {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-
-        .input-group { margin-bottom: 20px; }
-        
-        label { 
-            display: block; 
-            margin-bottom: 8px; 
-            font-size: 12px; 
-            color: var(--accent); 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        input, select {
+        .main-card {
             width: 100%;
-            padding: 14px;
-            background: rgba(0,0,0,0.5);
+            max-width: 600px;
+            background: #111;
+            border: 1px solid #222;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0,0,0,1);
+        }
+
+        .header-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 22px;
+            letter-spacing: 4px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            background: #000;
             border: 1px solid #333;
             color: #fff;
-            border-radius: 4px;
-            font-size: 15px;
-            transition: all 0.3s;
+            font-size: 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            outline: none;
         }
 
-        input:focus { border-color: var(--accent); outline: none; background: rgba(0,0,0,0.7); }
+        input:focus { border-color: var(--neon-pink); }
 
         .gen-btn {
             width: 100%;
-            padding: 16px;
+            padding: 15px;
             background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
+            border: 1.5px solid var(--neon-pink);
+            color: var(--neon-pink);
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            letter-spacing: 2px;
-            transition: 0.4s;
-            margin-top: 10px;
+            transition: 0.3s;
+            border-radius: 6px;
         }
 
         .gen-btn:hover {
-            background: var(--accent);
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
+            background: var(--neon-pink);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
         }
 
-        .result-area { margin-top: 30px; }
+        .result-list { margin-top: 30px; }
 
-        .prompt-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid #222;
-            padding: 20px;
-            margin-bottom: 15px;
-            position: relative;
-            border-left: 2px solid var(--primary);
+        .item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            font-size: 14px;
+            border-left: 3px solid var(--neon-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .p-zh { color: #888; font-size: 13px; margin-bottom: 10px; }
-        .p-en { color: #fff; font-size: 14px; line-height: 1.5; font-family: 'Courier New', monospace; }
-
-        .copy-tag {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 10px;
-            color: var(--accent);
+        .copy-link {
+            color: var(--neon-blue);
             cursor: pointer;
-            border: 1px solid var(--accent);
-            padding: 2px 6px;
-            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 15px;
+            white-space: nowrap;
+            text-decoration: underline;
         }
-        
-        .copy-tag:hover { background: var(--accent); color: #000; }
-
-        /* 隐藏滚动条但保留功能 */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: var(--primary); }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>CYBER-VISUAL SYSTEM V3.1</h1>
-</div>
+<div class="main-card">
+    <div class="header-title">古月 · 赛博门头系统</div>
+    
+    <label>输入店铺行业</label>
+    <input type="text" id="industry" placeholder="例如：电竞馆、黑胶吧、潮鞋店">
 
-<div class="main-ui">
-    <div class="input-group">
-        <label>行业领域 Industry</label>
-        <input type="text" id="industry" placeholder="例：潮玩概念店 / 威士忌酒吧 / 电子竞技">
-    </div>
+    <button class="gen-btn" onclick="generate()">生成 20 组纯中文提示词</button>
 
-    <div class="input-group">
-        <label>环境模式 Environment Mode</label>
-        <select id="scene">
-            <option value="Midnight pure black, high contrast, neon glow, pitch black background">极黑之夜 (高对比纯黑背景)</option>
-            <option value="Cyber-night, cinematic neon lighting, atmospheric fog">霓虹夜景 (电影氛围渲染)</option>
-            <option value="Rainy cyber street, wet floor reflection, neon lights">雨夜模式 (地面湿润反射)</option>
-            <option value="Future daylight, high-tech white style, clean lighting">白昼未来 (纯净高科技感)</option>
-        </select>
-    </div>
-
-    <div class="input-group" style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-        <div>
-            <label>比例 Ratio</label>
-            <select id="ratio">
-                <option value="--ar 16:9">16:9 宽屏</option>
-                <option value="--ar 3:4">3:4 竖屏</option>
-                <option value="--ar 1:1">1:1 方图</option>
-            </select>
-        </div>
-        <div>
-            <label>模型 Model</label>
-            <select id="version">
-                <option value="--v 6.0">Midjourney V6</option>
-                <option value="--niji 6">Niji 6 (动漫)</option>
-            </select>
-        </div>
-    </div>
-
-    <button class="gen-btn" onclick="generate()">GENERATE 20 PROMPTS</button>
-
-    <div class="result-area" id="results"></div>
+    <div class="result-list" id="output"></div>
 </div>
 
 <script>
 const r = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-// 精选风格与材质库
-const styles = ["Cyber-minimalism", "High-tech industrial", "Avant-garde architecture", "Digital-glitch aesthetic", "Hyper-futuristic"];
-const colors = ["Cyan and Magenta gradient", "Electric Purple neon", "Acid Green laser", "Deep Sea Blue", "Crimson and Gold"];
-const materials = ["Translucent frosted glass", "Brushed metal facade", "Anodized aluminum", "Glowing acrylic letters", "Mirror finish steel"];
+// 纯中文词库
+const styles = ["硬核工业风", "极简未来主义", "参数化流线设计", "重金属废土感", "霓虹复古美学", "数字黑客风格", "超现实科幻感"];
+const lights = ["蓝紫渐变霓虹", "电光紫发光带", "青色激光线条", "极黑背景对比光", "阵列式呼吸灯", "隐藏式线性光源"];
+const materials = ["阳极氧化铝板", "磨砂半透明亚克力", "不锈钢镜面", "蜂窝状金属网", "碳纤维肌理", "液态金属质感"];
+const scenes = ["黑夜纯黑背景", "雨后地面反射", "迷雾电影氛围", "高对比度强阴影", "丁达尔效应"];
 
 function generate() {
-    const ind = document.getElementById("industry").value || "Storefront";
-    const sce = document.getElementById("scene").value;
-    const rat = document.getElementById("ratio").value;
-    const ver = document.getElementById("version").value;
-    const res = document.getElementById("results");
-
-    res.innerHTML = "";
+    const ind = document.getElementById("industry").value || "商业门头";
+    const out = document.getElementById("output");
+    out.innerHTML = "";
 
     for(let i=0; i<20; i++){
-        const sty = r(styles);
-        const col = r(colors);
-        const mat = r(materials);
+        const txt = `[${ind}]门头设计，${r(styles)}，${r(materials)}，${r(lights)}，${r(scenes)}，8K超高清，写实建筑摄影效果 ——古月视觉`;
         
-        const zh = `[方案 ${i+1}] ${ind}门头，${sty}风格，${col}灯光，材质采用${mat}，配合${sce.split(',')[0]}效果。`;
-        const en = `Professional storefront design for ${ind}, ${sty}, ${col} neon lighting, made of ${mat}, ${sce}, architectural photography, 8k resolution, photorealistic, sharp details ${ver} ${rat}`;
-
         const div = document.createElement("div");
-        div.className = "prompt-card";
+        div.className = "item";
         div.innerHTML = `
-            <div class="copy-tag" onclick="copyIt(this, '${i}')">COPY</div>
-            <p class="p-zh">${zh}</p>
-            <p class="p-en" id="en-${i}">${en}</p>
+            <span>${i+1}. ${txt}</span>
+            <span class="copy-link" onclick="copyText('${txt}', this)">复制</span>
         `;
-        res.appendChild(div);
+        out.appendChild(div);
     }
 }
 
-function copyIt(btn, id) {
-    const text = document.getElementById(`en-${id}`).innerText;
+function copyText(text, el) {
     navigator.clipboard.writeText(text);
-    btn.innerText = "COPIED!";
-    setTimeout(() => btn.innerText = "COPY", 1000);
+    el.innerText = "已复制";
+    setTimeout(() => el.innerText = "复制", 1000);
 }
 </script>
 
