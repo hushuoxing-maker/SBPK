@@ -148,7 +148,7 @@ button:disabled{
 
 <div class="header">
   <h1>🔮 古月 · 赛博朋克门头智能生成系统</h1>
-  <p>真随机算法｜霓虹夜景强化｜结构可控｜8K写实｜正面完整展示</p>
+  <p>真随机算法｜结构可控｜8K写实｜正面完整展示</p>
 </div>
 
 <div class="container">
@@ -162,12 +162,6 @@ button:disabled{
   <option value="金属框架造型">金属框架造型</option>
   <option value="多层霓虹包围结构">多层霓虹包围结构</option>
   <option value="未来科技外立面结构">未来科技外立面结构</option>
-</select>
-
-<label>场景模式</label>
-<select id="scene">
-  <option value="白天自然光，正立面平视无遮挡">白天效果图</option>
-  <option value="夜景霓虹灯光环境，强发光字，科技街区氛围">夜景霓虹强化模式</option>
 </select>
 
 <button onclick="generate()" id="generate-btn">生成20组赛博提示词</button>
@@ -190,7 +184,6 @@ async function generate(){
   const industryInput = document.getElementById("industry");
   const industry=industryInput.value.trim();
   const structure=document.getElementById("structure").value;
-  const scene=document.getElementById("scene").value;
   const result=document.getElementById("result");
   const generateBtn = document.getElementById("generate-btn");
 
@@ -212,7 +205,8 @@ async function generate(){
   let all=[];
 
   for(let i=0;i<20;i++){
-    const prompt=`${scene}，完整展示，${structure}，${industry}门头，${r(styleLib)}，${r(colorLib)}，${r(materialLib)}组合，品牌店名+未来科技标语，未来感字体设计，${r(lightLib)}，8K高清写实效果图，${r(textureLib)}，可直接施工参考 ——古月AI赛博视觉系统`;
+    // 移除场景模式，保留核心的完整展示+结构+行业+随机词库
+    const prompt=`正立面平视无遮挡，完整展示，${structure}，${industry}门头，${r(styleLib)}，${r(colorLib)}，${r(materialLib)}组合，品牌店名+未来科技标语，未来感字体设计，${r(lightLib)}，8K高清写实效果图，${r(textureLib)}，可直接施工参考 ——古月AI赛博视觉系统`;
     all.push(prompt);
 
     // 创建结果项DOM（优化事件绑定）
