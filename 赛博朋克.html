@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>古月·赛博朋克商业门头智能系统 V2.0</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif}
+body{
+  background:linear-gradient(135deg,#0F1020,#1A1F35);
+  min-height:100vh;
+  padding:20px;
+}
+.header{
+  text-align:center;
+  padding:40px 20px;
+  border-radius:16px;
+  background:linear-gradient(90deg,#6C00FF,#00F5FF);
+  color:#fff;
+  box-shadow:0 10px 30px rgba(0,255,255,.3);
+}
+.header h1{font-size:26px;margin-bottom:8px}
+
+.container{
+  max-width:900px;
+  margin:30px auto;
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(10px);
+  padding:25px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.1);
+}
+
+label{display:block;color:#fff;margin:15px 0 6px;font-weight:500}
+
+input,select{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  margin-bottom:10px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(90deg,#6C00FF,#00F5FF);
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+}
+button:hover{opacity:.9}
+
+.result{margin-top:25px}
+.item{
+  background:rgba(255,255,255,.05);
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:10px;
+  border-left:3px solid #00F5FF;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+.text{flex:1;font-size:13px;color:#E5E7EB;line-height:1.6}
+.copy{
+  padding:5px 10px;
+  font-size:12px;
+  border:none;
+  border-radius:6px;
+  background:#6C00FF;
+  color:#fff;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>🔮 古月 · 赛博朋克门头智能生成系统</h1>
+  <p>真随机算法｜霓虹夜景强化｜结构可控｜8K写实</p>
+</div>
+
+<div class="container">
+
+<label>店铺行业类型</label>
+<input type="text" id="industry" placeholder="电竞馆、酒吧、科技体验馆、潮玩店">
+
+<label>门头结构造型</label>
+<select id="structure">
+  <option value="悬浮式赛博结构">悬浮式赛博结构</option>
+  <option value="金属框架造型">金属框架造型</option>
+  <option value="多层霓虹包围结构">多层霓虹包围结构</option>
+  <option value="未来科技外立面结构">未来科技外立面结构</option>
+</select>
+
+<label>场景模式</label>
+<select id="scene">
+  <option value="白天自然光，正立面平视无遮挡">白天效果图</option>
+  <option value="夜景霓虹灯光环境，强发光字，科技街区氛围">夜景霓虹强化模式</option>
+</select>
+
+<button onclick="generate()">生成20组赛博提示词</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+
+function r(arr){return arr[Math.floor(Math.random()*arr.length)]}
+
+const colorLib=["蓝紫渐变霓虹","青粉渐变灯带","紫色电光霓虹","蓝色激光灯效","粉紫科技渐变"];
+const materialLib=["金属板","亚克力发光字","霓虹灯管","不锈钢","透明灯箱结构"];
+const styleLib=["未来科技","赛博潮酷","霓虹炫彩","科技街区风","赛博朋克风"];
+const lightLib=["强发光字","外发光灯带","线性激光灯条","隐藏式灯光结构"];
+const textureLib=["高对比光影","金属反射质感","科技材质肌理","层次分明光效"];
+
+function generate(){
+  const industry=document.getElementById("industry").value.trim();
+  const structure=document.getElementById("structure").value;
+  const scene=document.getElementById("scene").value;
+  const result=document.getElementById("result");
+
+  if(!industry){alert("请输入行业");return;}
+
+  result.innerHTML="";
+  let all=[];
+
+  for(let i=0;i<20;i++){
+
+    const prompt=`${scene}，完整展示，${structure}，${industry}门头，${r(styleLib)}，${r(colorLib)}，${r(materialLib)}组合，品牌店名+未来科技标语，未来感字体设计，${r(lightLib)}，8K高清写实效果图，${r(textureLib)}，可直接施工参考 ——古月AI赛博视觉系统`;
+
+    all.push(prompt);
+
+    result.innerHTML+=`
+      <div class="item">
+        <div class="text">${i+1}. ${prompt}</div>
+        <button class="copy" onclick="navigator.clipboard.writeText(\`${prompt}\`)">复制</button>
+      </div>
+    `;
+  }
+
+  result.innerHTML+=`
+    <button onclick="navigator.clipboard.writeText(\`${all.join("\n\n")}\`)">
+    📋 一键复制全部
+    </button>
+  `;
+}
+
+</script>
+
+</body>
+</html>
